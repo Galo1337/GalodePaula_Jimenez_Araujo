@@ -44,7 +44,7 @@ int encriptar(string mensaje, int a) {
 				mensaje_encriptado += mensaje[j];
 			}
 		}
-		cout << mensaje_encriptado << "\n";
+		cout << mensaje_encriptado;
 	}
 	return 1;
 }
