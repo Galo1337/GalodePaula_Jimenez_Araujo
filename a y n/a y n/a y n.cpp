@@ -1,34 +1,39 @@
 #include <iostream>
 using namespace std;
 
+int modular_galo(int a1, int b1);
+
 int main()
 {
+
+    cout << "Ingrese a: ";
     int a;
+    cin >> a;
+    cout << "Ingrese n: ";
     int n;
+    cin >> n;  
+
+    cout << "\nRemainer: " << modular_galo(a,n);
+}
+ 
+int modular_galo(int a1, int b1) {
     int q = 0;
     int r = 0;
 
-    cout << "Ingrese a: ";
-    cin >> a;
-    cout << "Ingrese n: ";
-    cin >> n;
-
-    if (a > 0) {
-        while (a > n) {
-            a = a - n;
+    if (a1 > 0) {
+        while (a1 > b1) {
+            a1 = a1 - b1;
             q++;
         }
-        r = a;
+        r = a1;
     }
     else {
-        while (a < 0) {
-            a = a + n;
+        while (a1 < 0) {
+            a1 = a1 + b1;
             q--;
         }
-        r = a;
+        r = a1;
     }
-    
 
-    cout << "Quotient: " << q << "\nRemainer: " << r ;
+    return r;
 }
-
