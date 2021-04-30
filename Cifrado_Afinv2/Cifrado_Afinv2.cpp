@@ -3,10 +3,13 @@
 using namespace std;
 
 int encriptar(string mensaje_original, int a, int b);
+int desencriptar(string mensaje_original, int a, int b);
 int modular_galo(int a1, int b1);
 int revision(string mensaje_original, int a, int b);
+int gcd(int a, int b);
 
 int main() {
+
 	int a;
 	cout << "Ingrese a (constante de decimacion): ";
 	cin >> a;
@@ -26,13 +29,12 @@ int main() {
 }
 
 int encriptar(string mensaje_original, int a, int b) {
-	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-	int mod_n = alphaL.length();	
+	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
 	int mensage_l = mensaje_original.length();
 	for (int i = 0; i < mensage_l; i++) {
 		for (int j = 0; j < alphaL.length(); j++) {
-			if (mensaje_original[i] == alphaL[j]) {
-				int result = modular_galo(j + a, alphaL.length());
+			if (mensaje_original[i] == alphaL[j]) { // j es la posicion en el alphabeto de la leta, a = 0, b = 1 , c = 2 . . . . . etc 
+				int result = modular_galo((j*a)+b, alphaL.length());
 				mensaje_original[i] = alphaL[result];
 				break;
 			}
@@ -43,6 +45,26 @@ int encriptar(string mensaje_original, int a, int b) {
 	return 1;
 }
 
+int desencriptar(string mensaje_original, int a, int b) {
+	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
+	int n = 0;
+	while (modular_galo(a * n, alphaL.length()) != 1) {
+		n++;
+	}
+	int mensage_l = mensaje_original.length();
+	for (int i = 0; i < mensage_l; i++) {
+		for (int j = 0; j < alphaL.length(); j++) {
+			if (mensaje_original[i] == alphaL[j]) { // j es la posicion en el alphabeto de la leta, a = 0, b = 1 , c = 2 . . . . . etc 
+				int result = modular_galo(n * (j - b), alphaL.length());
+				mensaje_original[i] = alphaL[result];
+				break;
+			}
+		}
+
+	}
+	cout << mensaje_original;
+	return 1;
+}
 
 int modular_galo(int a1, int b1) {
 	int q = 0;
@@ -70,6 +92,11 @@ int modular_galo(int a1, int b1) {
 }
 
 int revision(string mensaje_original, int a, int b) {
+	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
+
+	if (gcd(a,alphaL.length()) != 1) {
+		cout << "El maximo comun divisor no es igual a 1, asi que no se podra hacer un descifrado\n";
+	}
 
 	cout << "Ingrese '1' si quiere encriptar, '2' si quiere decriptar ";
 	int choice;
@@ -79,9 +106,20 @@ int revision(string mensaje_original, int a, int b) {
 	if (choice == 1) {
 		encriptar(mensaje_original,a,b);
 	}
+	else if (choice == 2) {
+		desencriptar(mensaje_original, a, b);
+	}
 	else {
 		cout << "Ingrese un numero correcto\n";
 		revision(mensaje_original, a, b);
 	}
 	return 1;
+}
+
+int gcd(int a, int b)
+{
+	if (a == 0) {
+		return b;
+	}
+	return gcd(modular_galo(b,a), a);
 }
