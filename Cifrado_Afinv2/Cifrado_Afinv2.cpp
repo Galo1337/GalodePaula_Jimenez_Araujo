@@ -29,7 +29,7 @@ int main() {
 }
 
 int encriptar(string mensaje_original, int a, int b) {
-	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
+	string alphaL = "abcdefghijklmnopqrstuvwxyz,.-_ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789()";	// mod n
 	int mensage_l = mensaje_original.length();
 	for (int i = 0; i < mensage_l; i++) {
 		for (int j = 0; j < alphaL.length(); j++) {
@@ -46,7 +46,7 @@ int encriptar(string mensaje_original, int a, int b) {
 }
 
 int desencriptar(string mensaje_original, int a, int b) {
-	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
+	string alphaL = "abcdefghijklmnopqrstuvwxyz,.-_ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789()";	// mod n
 	int n = 0;
 	while (modular_galo(a * n, alphaL.length()) != 1) {
 		n++;
@@ -92,7 +92,7 @@ int modular_galo(int a1, int b1) {
 }
 
 int revision(string mensaje_original, int a, int b) {
-	string alphaL = "abcdefghijklmnopqrstuvwxyz1234567890-,.()ABCDEFGHIJKLMNOPQRSTUVWXYZ ";	// mod n
+	string alphaL = "abcdefghijklmnopqrstuvwxyz,.-_ABCDEFGHIJKLMNOPQRSTUVWXYZ 0123456789()";	// mod n
 
 	if (gcd(a,alphaL.length()) != 1) {
 		cout << "El maximo comun divisor no es igual a 1, asi que no se podra hacer un descifrado\n";
